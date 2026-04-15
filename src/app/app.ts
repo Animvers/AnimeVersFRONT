@@ -1,12 +1,80 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { ApiReponse } from './models/api-reponse';
+import { HttpHeaders } from '@angular/common/http';
+import { AuthService } from './services/auth';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('AnimVersFRONT');
+  // Variable Global
+
+  APP_ENV: string = 'DEV'; /*DEV ou PROD*/
+
+  url_API_DEV = 'http://localhost:8000';
+  url_API_PROD = 'https://api-url';
+
+  url_API_DEV2 = 'https://graphql.anilist.co';
+
+  public currentUser: User | null = null;
+  public currentToken: string = '';
+
+  constructor(
+    public authService: AuthService,
+    private cookiesServices: CookieService,
+    private router: Router,
+  ) {
+    const cookieToken: string = this.cookiesServices.get('AnimVersFrontToken');
+    if (cookieToken) {
+      this.loginWithToken(cookieToken);
+    }
+  }
+
+  // FUNCTION GLOBAL
+  urlAPI() {
+    if (this.APP_ENV === 'DEV') {
+      return this.url_API_DEV;
+    } else {
+      return this.url_API_PROD;
+    }
+  }
+
+  createCORS(newToken: string | null = null) {
+    var token: string;
+    if (newToken) {
+      token = newToken;
+    } else {
+      token = this.currentToken;
+    }
+
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    });
+    var options = { headers: headers };
+
+    return options;
+  }
+
+  // FUNCTION USER
+  loginWithToken(token: string) {
+    this.authService
+      .token(this.urlAPI(), this.createCORS(token))
+      .subscribe((responseToken: ApiReponse) => {
+        if (responseToken.status == 'ok') {
+          this.currentUser = responseToken.result;
+
+          if (this.currentUser) {
+            this.currentToken = this.currentUser.token;
+            this.authService.updateUser(this.currentUser);
+          }
+        }
+      });
+  }
 }
