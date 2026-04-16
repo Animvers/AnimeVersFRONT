@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Navbar } from './features/navbar/navbar';
 import { ApiReponse } from './models/api-reponse';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './services/auth';
@@ -9,13 +10,14 @@ import { User } from './models/user';
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [Navbar],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  // Variable Global
 
-  APP_ENV: string = 'DEV'; /*DEV ou PROD*/
+  /************* Variable Global *************/
+  APP_ENV: string = 'DEV'; /* DEV ou PROD */
 
   url_API_DEV = 'http://localhost:8000';
   url_API_PROD = 'https://api-url';
@@ -36,7 +38,7 @@ export class App {
     }
   }
 
-  // FUNCTION GLOBAL
+  /************* FUNCTION GLOBAL *************/
   urlAPI() {
     if (this.APP_ENV === 'DEV') {
       return this.url_API_DEV;
@@ -62,7 +64,7 @@ export class App {
     return options;
   }
 
-  // FUNCTION USER
+  /************* FUNCTION USER *************/
   loginWithToken(token: string) {
     this.authService
       .token(this.urlAPI(), this.createCORS(token))
@@ -76,5 +78,31 @@ export class App {
           }
         }
       });
+  }
+
+  login(email: string, mdp: string) {
+    var bodyNoJson = {
+      email: email,
+      password: mdp,
+    };
+    this.authService.login(bodyNoJson, this.urlAPI()).subscribe((reponseLogin: ApiReponse) => {
+      if (reponseLogin.status == 'ok') {
+        this.currentUser = reponseLogin.result;
+
+        if (this.currentUser) {
+          this.currentToken = this.currentUser.token;
+          this.cookiesServices.set('AnimVersFrontToken', this.currentToken);
+          this.authService.updateUser(this.currentUser);
+          this.router.navigate(['/']);
+        }
+      } else if (reponseLogin.status == 'error') {
+      }
+    });
+  }
+
+  logOut() {
+    this.currentUser = null;
+    this.currentToken = '';
+    this.cookiesServices.delete('AnimVersFrontToken');
   }
 }

@@ -29,6 +29,6 @@ export class AuthService {
   }
 
   token(apiUrl: string, options: { headers: HttpHeaders }): Observable<ApiReponse> {
-    return this.http.get<ApiReponse>(apiUrl + '/user/token', options);
+    return this.http.get<ApiReponse>(apiUrl + '/auth/token', options);
   }
 }
