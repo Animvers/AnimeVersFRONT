@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar">
     <div class="nav-brand">
-      <img class="logo" src="Logo.png" alt="LOGO">
+      <img class="logo" src="favicon.ico" alt="LOGO">
       <div class="brand-text"><h1> AnimVers </h1></div>
     </div>
 
@@ -11,6 +11,10 @@
 
     <div class="nav-links">
       @if(authService.currentUserSelect(); as user) {
+
+        <a routerLink="/" routerLinkActive="active"><b> Home</b></a>
+        <a routerLink="#" routerLinkActive="active"><b> Bibli</b></a>
+        <a routerLink="#" routerLinkActive="active"><b> Sondages</b></a>
 
         @if(user.role && user.role.includes('ROLE_ADMIN')) {
           <a routerLink="/admin" routerLinkActive="active"><b> Admin </b></a>
