@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { Err } from './features/err/err';
-import { Home } from './features/home/home';
+import { Err } from './features/components/err/err';
+import { Home } from './features/pages/home/home';
 
 export const routes: Routes = [
-  { path: '**', component: Err},
-  { path: '', component: Home},
+  { path: '', component: Home },
+  { path: '**', component: Err },
 ];

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Navbar } from './features/navbar/navbar';
+import { Navbar } from './features/components/navbar/navbar';
 import { ApiReponse } from './models/api-reponse';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './services/auth';
@@ -10,14 +10,14 @@ import { User } from './models/user';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Navbar],
+  imports: [Navbar, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-
   /************* Variable Global *************/
-  APP_ENV: string = 'DEV'; /* DEV ou PROD */
+  APP_ENV: string = 'DEV';
+  /* APP_ENV: string = 'PROD'; */
 
   url_API_DEV = 'http://localhost:8000';
   url_API_PROD = 'https://api-url';
@@ -32,7 +32,8 @@ export class App {
     private cookiesServices: CookieService,
     private router: Router,
   ) {
-    const cookieToken: string = this.cookiesServices.get('AnimVersFrontToken');
+    const cookieToken: string = this.cookiesServices.get('AnimVersToken');
+
     if (cookieToken) {
       this.loginWithToken(cookieToken);
     }
@@ -48,6 +49,7 @@ export class App {
   }
 
   createCORS(newToken: string | null = null) {
+
     var token: string;
     if (newToken) {
       token = newToken;
@@ -59,6 +61,7 @@ export class App {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token,
     });
+
     var options = { headers: headers };
 
     return options;
@@ -91,7 +94,7 @@ export class App {
 
         if (this.currentUser) {
           this.currentToken = this.currentUser.token;
-          this.cookiesServices.set('AnimVersFrontToken', this.currentToken);
+          this.cookiesServices.set('AnimVersToken', this.currentToken);
           this.authService.updateUser(this.currentUser);
           this.router.navigate(['/']);
         }
@@ -103,6 +106,6 @@ export class App {
   logOut() {
     this.currentUser = null;
     this.currentToken = '';
-    this.cookiesServices.delete('AnimVersFrontToken');
+    this.cookiesServices.delete('AnimVersToken');
   }
 }

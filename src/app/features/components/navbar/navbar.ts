@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../services/auth';
-import { App } from '../../app';
+import { AuthService } from '../../../services/auth';
+import { App } from '../../../app';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,7 @@ import { App } from '../../app';
 })
 export class Navbar {
   constructor(
-    public authService: AuthService,
     public app: App,
+    public authService: AuthService,
   ) {}
 }

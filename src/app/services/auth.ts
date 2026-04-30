@@ -1,7 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { App } from '../app';
 import { ApiReponse } from '../models/api-reponse';
 import { User } from '../models/user';
 
