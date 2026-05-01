@@ -5,7 +5,7 @@ import { Navbar } from './features/components/navbar/navbar';
 import { ApiReponse } from './models/api-reponse';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './services/auth';
-import { User } from './models/user';
+import { UserModel } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ export class App {
 
   url_API_DEV2 = 'https://graphql.anilist.co';
 
-  public currentUser: User | null = null;
+  public currentUser: UserModel | null = null;
   public currentToken: string = '';
 
   constructor(

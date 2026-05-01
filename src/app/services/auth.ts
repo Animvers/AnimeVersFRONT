@@ -2,18 +2,18 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiReponse } from '../models/api-reponse';
-import { User } from '../models/user';
+import { UserModel } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public currentUserSelect = signal<User | null>(null);
+  public currentUserSelect = signal<UserModel | null>(null);
 
   constructor(private http: HttpClient) {}
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   options = { headers: this.headers };
 
-  updateUser(user: User) {
+  updateUser(user: UserModel) {
     this.currentUserSelect.set(user);
   }
 
