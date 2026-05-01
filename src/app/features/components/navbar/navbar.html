@@ -6,10 +6,6 @@
     </div>
 
     <div class="nav-links">
-      <a routerLink="/" ><b>Accueil</b></a>
-    </div>
-
-    <div class="nav-links">
       @if(authService.currentUserSelect(); as user) {
 
         <a routerLink="/" routerLinkActive="active"><b> Home</b></a>

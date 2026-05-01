@@ -1,0 +1,37 @@
+footer {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-top: 1px solid #eeeeee;
+  margin-top: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #E4E6EB;
+}

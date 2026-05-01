@@ -1,0 +1,27 @@
+div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 8px;
+  width: 600px;
+}
+
+h1 {
+  font-size: 72px;
+  margin: 0;
+  color: #e74c3c;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
