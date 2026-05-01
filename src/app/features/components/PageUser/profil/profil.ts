@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, OnInit, signal } from '@angular/core';
-import { UserService } from '../../../services/user';
+import { UserService } from '../../../../services/user';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { App } from '../../../app';
-import { AuthService } from '../../../services/auth';
+import { App } from '../../../../app';
+import { AuthService } from '../../../../services/auth';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
-import { ApiReponse } from '../../../models/api-reponse';
-import { ProfilModel } from '../../../models/profil.model';
+import { ApiReponse } from '../../../../models/api-reponse';
+import { ProfilModel } from '../../../../models/profil.model';
 
 @Component({
   selector: 'app-profil',
