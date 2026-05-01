@@ -49,7 +49,6 @@ export class App {
   }
 
   createCORS(newToken: string | null = null) {
-
     var token: string;
     if (newToken) {
       token = newToken;
@@ -83,10 +82,10 @@ export class App {
       });
   }
 
-  login(email: string, mdp: string) {
+  login(email: string, password: string) {
     var bodyNoJson = {
       email: email,
-      password: mdp,
+      password: password,
     };
     this.authService.login(bodyNoJson, this.urlAPI()).subscribe((reponseLogin: ApiReponse) => {
       if (reponseLogin.status == 'ok') {

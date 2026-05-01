@@ -17,6 +17,6 @@ export class Home implements OnInit {
     private cd: ChangeDetectorRef,
   ) {}
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    /* throw new Error('Method not implemented.'); */
   }
 }

@@ -1,0 +1,13 @@
+<h2>Connexion</h2>
+
+<form #loginForm="ngForm" (submit)="onLogin(loginForm)">
+
+
+  <input type="email" placeholder="email" name="loginEmail" required ngModel>
+  <input type="password" placeholder="password" name="loginPassword" required ngModel>
+
+  <button type="submit">Entre au Rukongai </button>
+
+</form>
+
+<p>Tu n’es pas encore Shinigami ? <a routerLink="/register">Rejoindre la Soul Society</a></p>
