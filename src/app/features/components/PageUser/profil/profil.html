@@ -3,13 +3,15 @@
     <div class="avatar-section">
 
       <div class="avatar-img-container">
-        <img [src]="profil?.imageProfil || 'favicon.ico'" class="avatar-img" (error)="updateUrl($event)">
+        <img [src]="'http://localhost:8000/uploads/profiles/' + profil?.imageProfil"
+             class="avatar-img"
+             (error)="updateUrl($event)">
       </div>
 
       <div class="profile-info">
-        <p><strong>Bio : </strong> {{ profil?.bio }}</p>
         <h2>{{ user.pseudo || 'Sans pseudo' }}</h2>
         <p><strong>Email :</strong> {{ user.email || 'Sans email' }}</p>
+        <p><strong>Bio : </strong> {{ profil?.bio }}</p>
 
         <div class="actions">
           <button class="edit-btn-gear" (click)="openEditModal()">⚙️ Modifier</button>
@@ -20,7 +22,7 @@
     @if(this.isEditModalOpen){
       <div class="input-group-container">
         <div class="modal-content">
-        <h3>Modifier le ProfilModel</h3>
+        <h3>Modifier le Profil</h3>
 
 <!--          Pas fonctionnel pour l'instant-->
           <div class="inputOne">
@@ -30,12 +32,12 @@
 
           <div class="inputOne">
             <label>Bio :</label>
-            <input type="email" [(ngModel)]="tempbio" placeholder="Nouvelle email">
+            <input type="email" [(ngModel)]="tempbio" placeholder="Nouvelle bio">
           </div>
 
           <div class="inputOne">
             <label>Photo de Profile : </label>
-            <input type="text" [(ngModel)]="tempimageProfil" placeholder="Lien de la nouvelle PP">
+            <input type="file" (change)="onFileSelected($event)" accept="image/*">
           </div>
 
           <div class="modal-actions">

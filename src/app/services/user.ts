@@ -7,9 +7,9 @@ import { ApiReponse } from '../models/api-reponse';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  update(bodyNoJson: any, apiUrl: string, options: { headers: HttpHeaders },): Observable<ApiReponse> {
-    const body = JSON.stringify(bodyNoJson);
-    return this.http.put<ApiReponse>(apiUrl + '/profil/user/update', body, options);
+  update(formData: FormData, apiUrl: string, token: string): Observable<ApiReponse> {
+    const headers = new HttpHeaders({ Authorization: 'Bearer ' + token, });
+    return this.http.post<ApiReponse>(apiUrl + '/profil/user/update', formData, { headers });
   }
 
   getProfil(apiUrl: string, options: { headers: HttpHeaders }): Observable<ApiReponse> {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,19 +33,18 @@ export class Profil implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 1. On récupère le token
+    // récupere le token
     const token = this.cookiesService.get('AnimVersToken');
     if (!token) return;
 
-    // 2. On appelle le service pour charger la bio et l'image au démarrage
+    // appelle du service
     this.userService
       .getProfil(this.app.urlAPI(), this.app.createCORS(token))
       .subscribe((reponse: ApiReponse) => {
         if (reponse.status === 'ok') {
-          // reponse.result contient les données de ton API
           this.profil = reponse.result;
 
-          // On force Angular à afficher les données maintenant
+          // ca force Angular a afficher les données instante sans relaod la page
           this.cd.detectChanges();
         }
       });
@@ -55,20 +54,30 @@ export class Profil implements OnInit {
     this.isEditModalOpen = true;
   }
 
+  selectedFile: File | null = null;
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   saveProfil() {
     const token = this.cookiesService.get('AnimVersToken');
     if (!token) return;
 
-    const bodyJSON = {
-      pseudo: this.temppseudo,
-      bio: this.tempbio,
-      imageProfil: this.tempimageProfil,
-    };
+    // utilisation de FormData a la place de bodyJSON
+    const formData = new FormData();
+    formData.append('bio', this.tempbio);
+    formData.append('pseudo', this.temppseudo);
+
+    if (this.selectedFile) {
+      formData.append('imageProfil', this.selectedFile, this.selectedFile.name);
+    }
 
     this.userService
-      .update(bodyJSON, this.app.urlAPI(), this.app.createCORS(token))
-      .subscribe((reponseUpdateAPI: ApiReponse) => {
-        if (reponseUpdateAPI.status == 'ok') {
+      // On passe plus le token avec this.app.createCORS(token) car c'est plus BodyJson dans le user.services.ts mais FormData
+      .update(formData, this.app.urlAPI(), token) // ici
+      .subscribe((reponse: ApiReponse) => {
+        if (reponse.status === 'ok') {
           window.location.reload();
         } else {
           alert('Erreur lors de la mise à jour');
