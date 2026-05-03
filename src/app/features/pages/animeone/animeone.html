@@ -1,0 +1,116 @@
+@if (!loading() && anime()) {
+  <div class="container">
+
+    <div class="banner" [style.backgroundImage]="'url(' + anime().bannerImage + ')'"></div>
+
+    <div class="content">
+
+<!--      Infos principal-->
+
+      <div class="head">
+        <div class="img+genres">
+          <img [src]="anime().coverImage.large" [alt]="anime().title.romaji" class="cover">
+
+          <div class="genres">
+            @for (genre of anime().genres; track genre) {
+              <span class="badge">{{ genre }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="titles">
+        <h1>{{ anime().title.english }}</h1>
+        <h2>{{ anime().title.romaji }}</h2>
+        <h3 class="native">{{ anime().title.native }}</h3>
+        </div>
+
+        <div class="stats">
+          <p><strong>Score moy :</strong> {{ anime().averageScore }}%</p>
+        </div>
+
+        <div class="add">
+          <button>Ajouter</button>
+          <button>Favoris</button>
+          <button>Voir sondages</button>
+        </div>
+      </div>
+
+<!--      Info Secondaire-->
+
+        <div class="info-list">
+          <p><strong>Synopsis : </strong>{{ anime().description }}</p>
+          <div class="dates">
+            <p><strong>Season :</strong> {{ anime().season }} {{ anime().seasonYear }}</p>
+            <p><strong>Start :</strong> {{ anime().startDate.day }}/{{ anime().startDate.month }}/{{ anime().startDate.year }}</p>
+            @if (anime().endDate.year) {
+              <p><strong>End:</strong> {{ anime().endDate.day }}/{{ anime().endDate.month }}/{{ anime().endDate.year }}</p>
+            }
+          </div>
+
+          <ul>
+            @for (studio of anime().studios.nodes; track studio.id) {
+              <li>{{ studio.name }}</li>
+            }
+          </ul>
+          <p><strong>Type :</strong> {{ anime().type }}</p>
+          <p><strong>Status :</strong> {{ anime().status }}</p>
+<!--                    Condition si l'anime est en cour on affiche le numéro du prochain ep sinon le nombre total si l'anime est finit-->
+          @if (anime().nextAiringEpisode) {
+            <strong>Next Episode :</strong> Episode {{ anime().nextAiringEpisode.episode }}
+          }@else{
+            <p><strong>Nbr ep :</strong> {{ anime().episodes }}</p>
+          }
+          <p><strong>Durée :</strong> {{ anime().duration }} min</p>
+          <p><strong>Source :</strong> {{ anime().source }}</p>
+          <p><strong>Country :</strong> {{ anime().countryOfOrigin }}</p>
+          <p><strong>Studios :</strong></p>
+        </div>
+
+
+<!--            OP/ED-->
+
+      <div class="list">
+        <h3>Liste des OP / ED</h3>
+        <div class="op">
+          <p>OP1</p>
+        </div>
+
+        <div class="ed">
+          <p>ED1</p>
+        </div>
+      </div>
+
+
+<!--      Perso-->
+
+      <div class="character">
+        <h3>Characters</h3>
+        <div class="character-grid">
+          @for (character of anime().characters.nodes; track character.id) {
+            <div class="character-card">
+              <img [src]="character.image.medium" [alt]="character.name.full">
+              <p>{{ character.name.full }}</p>
+            </div>
+          }
+        </div>
+      </div>
+
+
+<!--      Avis Public-->
+
+      <div class="avis-all">
+        <h3>Avis Public</h3>
+        <div class="avis-one">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+}
+@else if (loading()) {
+  <div class="loader">Chargement...</div>
+}
+@else {
+  <div class="error">Aucune données trouvées ...</div>
+}

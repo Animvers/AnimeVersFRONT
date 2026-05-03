@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>Tous les Animes</h1>
+
+  @if (loading()) {
+    <div class="loader">Chargement...</div>
+  } @else {
+    <div class="grid">
+      @for (item of animes(); track item.id) {
+        <div class="card">
+          <img [src]="item.coverImage.large" [alt]="item.title.romaji" [routerLink]="['/anime', item.id]">
+          <div class="card-body">
+            <h3>{{ item.title.english || item.title.romaji }}</h3>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="pages">
+      <button (click)="loadPage(currentPage() - 1)" [disabled]="currentPage() === 1">Précédent</button>
+      <span>Page {{ currentPage() }}</span>
+      <button (click)="loadPage(currentPage() + 1)">Suivant</button>
+    </div>
+  }
+</div>

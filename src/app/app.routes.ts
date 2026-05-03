@@ -4,11 +4,15 @@ import { Home } from './features/pages/home/home';
 import { Login } from './features/pages/auth/login/login';
 import { Register } from './features/pages/auth/register/register';
 import { User } from './features/pages/users/user/user';
+import { AnimeoneComponent } from './features/pages/animeone/animeone';
+import { AnimeAllComponent } from './features/pages/animeall/animeall';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-  { path: 'user', component: User},
+  { path: 'user', component: User },
+  { path: 'animes', component: AnimeAllComponent },
+  { path: 'anime/:id', component: AnimeoneComponent },
   { path: '**', component: Err },
 ];

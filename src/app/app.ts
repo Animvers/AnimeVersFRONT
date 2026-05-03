@@ -22,7 +22,7 @@ export class App {
   url_API_DEV = 'http://localhost:8000';
   url_API_PROD = 'https://api-url';
 
-  url_API_DEV2 = 'https://graphql.anilist.co';
+  static url_API_DEV2 = 'https://graphql.anilist.co';
 
   public currentUser: UserModel | null = null;
   public currentToken: string = '';
