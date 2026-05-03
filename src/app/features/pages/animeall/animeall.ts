@@ -16,18 +16,32 @@ export class AnimeAllComponent implements OnInit {
   public currentPage = signal(1);
   public loading = signal(true);
 
+  public searchQuery = signal('');
+  public selectedGenre = signal('');
+  public selectedStatus = signal('');
+
   ngOnInit() {
     this.loadPage(1);
   }
 
   loadPage(page: number) {
     this.loading.set(true);
-    this.anilistService.getAnimes(page).subscribe({
+    const filters = {
+      search: this.searchQuery() || undefined,
+      genres: this.selectedGenre() ? [this.selectedGenre()] : undefined,
+      status: this.selectedStatus() || undefined,
+    };
+
+    this.anilistService.getAnimes(page, 50, filters).subscribe({
       next: (data) => {
         this.animes.set(data.media);
         this.currentPage.set(data.pageInfo.currentPage);
         this.loading.set(false);
       },
     });
+  }
+
+  applyFilters() {
+    this.loadPage(1);
   }
 }

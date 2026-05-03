@@ -1,8 +1,51 @@
 <div class="container">
   <h1>Tous les Animes</h1>
 
+  <!-- Section Filtres -->
+  <div class="filters">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher un anime..." (input)="searchQuery.set($any($event.target).value); applyFilters()" class="search-input">
+    </div>
+
+<!--    Filtre genre-->
+    <div class="filters-row">
+      <select (change)="selectedGenre.set($any($event.target).value); applyFilters()">
+        <option value="">Tous les genres</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comédie</option>
+        <option value="Adventure">Adventure</option>
+        <option value="Drama">Drame</option>
+        <option value="Fantasy">Fantastique</option>
+        <option value="Romance">Romance</option>
+        <option value="Ecchi">Ecchi</option>
+        <option value="Horror">Horror</option>
+        <option value="Mecha">Mecha</option>
+        <option value="Music">Music</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Psychological">Psychological</option>
+        <option value="Sci-Fi">Sci-Fi</option>
+        <option value="Slice of Life">Slice of Life</option>
+        <option value="Sports">Sports</option>
+        <option value="Supernatural">Supernatural</option>
+        <option value="Music">Thriller</option>
+      </select>
+
+
+<!--      Filtre status-->
+      <select (change)="selectedStatus.set($any($event.target).value); applyFilters()">
+        <option value="">Tous les statuts</option>
+        <option value="FINISHED">Terminé</option>
+        <option value="RELEASING">En cours</option>
+        <option value="NOT_YET_RELEASED">À venir</option>
+      </select>
+    </div>
+  </div>
+
+
+<!--  Attente de l'api-->
   @if (loading()) {
     <div class="loader">Chargement...</div>
+<!--    Affichage des animes trouvés-->
   } @else {
     <div class="grid">
       @for (item of animes(); track item.id) {
@@ -12,9 +55,13 @@
             <h3>{{ item.title.english || item.title.romaji }}</h3>
           </div>
         </div>
+<!--        Si aucune correspondance-->
+      } @empty {
+        <p>Aucun anime trouvé pour cette recherche.</p>
       }
     </div>
 
+<!--    Pages-->
     <div class="pages">
       <button (click)="loadPage(currentPage() - 1)" [disabled]="currentPage() === 1">Précédent</button>
       <span>Page {{ currentPage() }}</span>
