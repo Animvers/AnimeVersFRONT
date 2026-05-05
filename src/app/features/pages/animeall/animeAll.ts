@@ -6,8 +6,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-animeall',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './animeall.html',
-  styleUrls: ['./animeall.css'],
+  templateUrl: './animeAll.html',
+  styleUrls: ['./animeAll.css'],
 })
 export class AnimeAllComponent implements OnInit {
   private anilistService = inject(Anilist);

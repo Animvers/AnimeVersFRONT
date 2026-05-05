@@ -5,8 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-animeone',
   standalone: true,
-  templateUrl: './animeone.html',
-  styleUrls: ['./animeone.css'],
+  templateUrl: './animeOne.html',
+  styleUrls: ['./animeOne.css'],
 })
 export class AnimeoneComponent implements OnInit {
   private route = inject(ActivatedRoute);
