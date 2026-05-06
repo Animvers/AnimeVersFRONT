@@ -95,9 +95,15 @@ export class App {
           this.currentToken = this.currentUser.token;
           this.cookiesServices.set('AnimVersToken', this.currentToken);
           this.authService.updateUser(this.currentUser);
-          this.router.navigate(['/']);
+
+          if (this.currentUser.role && this.currentUser.role.includes('ROLE_ADMIN')) {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/user']);
+          }
         }
       } else if (reponseLogin.status == 'error') {
+        console.error('Erreur de connexion :', reponseLogin);
       }
     });
   }
@@ -106,5 +112,6 @@ export class App {
     this.currentUser = null;
     this.currentToken = '';
     this.cookiesServices.delete('AnimVersToken');
+    window.location.reload();
   }
 }
