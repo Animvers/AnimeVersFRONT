@@ -1,8 +1,8 @@
 @if (!loading() && anime()) {
+
+  <div class="banner" [style.backgroundImage]="'url(' + anime().bannerImage + ')'"></div>
+
   <div class="container">
-
-    <div class="banner" [style.backgroundImage]="'url(' + anime().bannerImage + ')'"></div>
-
     <div class="content">
 
 <!--      Infos principal-->
@@ -18,20 +18,23 @@
           </div>
         </div>
 
-        <div class="titles">
-        <h1>{{ anime().title.english }}</h1>
-        <h2>{{ anime().title.romaji }}</h2>
-        <h3 class="native">{{ anime().title.native }}</h3>
-        </div>
+        <div class="info-first">
+          <div class="titles">
+          <h1>{{ anime().title.english }}</h1>
+          <h2>{{ anime().title.romaji }}</h2>
+          <h3 class="native">{{ anime().title.native }}</h3>
+          </div>
 
-        <div class="stats">
-          <p><strong>Score moy :</strong> {{ anime().averageScore }}%</p>
-        </div>
+          <div class="stats">
+            <p><strong>Score moy :</strong> {{ anime().averageScore }}%</p>
+          </div>
 
-        <div class="add">
-          <button>Ajouter</button>
-          <button>Favoris</button>
-          <button>Voir sondages</button>
+
+          <div class="add">
+            <button>Ajouter</button>
+            <button>Favoris</button>
+            <button>Voir sondages</button>
+          </div>
         </div>
       </div>
 
@@ -73,11 +76,11 @@
       <div class="list">
         <h3>Liste des OP / ED</h3>
         <div class="op">
-          <p>OP1</p>
+          <p><b>OP1 :</b> text</p>
         </div>
 
         <div class="ed">
-          <p>ED1</p>
+          <p><b>ED1 :</b> text</p>
         </div>
       </div>
 
@@ -102,7 +105,7 @@
       <div class="avis-all">
         <h3>Avis Public</h3>
         <div class="avis-one">
-
+<b>Noa</b><br><p>Incroyable</p><br><br><b>Noa</b><br><p>Incroyable</p>
         </div>
       </div>
     </div>
