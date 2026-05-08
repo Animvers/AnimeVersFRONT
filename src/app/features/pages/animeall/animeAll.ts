@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Anilist } from '../../../services/anilist';
+import { AnilistService } from '../../../services/anilist.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./animeAll.css'],
 })
 export class AnimeAllComponent implements OnInit {
-  private anilistService = inject(Anilist);
+  private anilistService = inject(AnilistService);
 
   public animes = signal<any[]>([]);
   public currentPage = signal(1);

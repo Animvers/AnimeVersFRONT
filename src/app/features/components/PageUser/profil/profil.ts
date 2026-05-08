@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user';
+import { UserService } from '../../../../services/user.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { App } from '../../../../app';
-import { AuthService } from '../../../../services/auth';
+import { AuthService } from '../../../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 import { ApiReponse } from '../../../../interfaces/api-reponse';
-import { ProfilModel } from '../../../../interfaces/profil.model';
+import { ProfilInterface} from '../../../../interfaces/profil.interface';
 
 @Component({
   selector: 'app-profil',
@@ -22,7 +22,7 @@ export class Profil implements OnInit {
   tempbio: string = '';
   tempimageProfil: Text | string = '';
 
-  public profil: ProfilModel | null = null;
+  public profil: ProfilInterface | null = null;
 
   constructor(
     private cookiesService: CookieService,

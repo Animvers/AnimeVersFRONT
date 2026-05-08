@@ -4,8 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Navbar } from './features/components/navbar/navbar';
 import { ApiReponse } from './interfaces/api-reponse';
 import { HttpHeaders } from '@angular/common/http';
-import { AuthService } from './services/auth';
-import { UserModel } from './interfaces/user.model';
+import { AuthService } from './services/auth.service';
+import { UserInterface } from './interfaces/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ export class App {
 
   static url_API_DEV2 = 'https://graphql.anilist.co';
 
-  public currentUser: UserModel | null = null;
+  public currentUser: UserInterface | null = null;
   public currentToken: string = '';
 
   constructor(

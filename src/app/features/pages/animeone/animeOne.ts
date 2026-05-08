@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Anilist } from '../../../services/anilist';
+import { AnilistService } from '../../../services/anilist.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AnimeoneComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private anilistService = inject(Anilist);
+  private anilistService = inject(AnilistService);
 
   public anime = signal<any>(null);
   public loading = signal(true);

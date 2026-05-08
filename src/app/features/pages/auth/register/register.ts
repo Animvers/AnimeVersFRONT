@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { AuthService } from '../../../../services/auth';
+import { AuthService } from '../../../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { App } from '../../../../app';
 import { ApiReponse } from '../../../../interfaces/api-reponse';

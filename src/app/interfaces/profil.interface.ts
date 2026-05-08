@@ -1,4 +1,4 @@
-export interface ProfilModel {
+export interface ProfilInterface {
   id: number;
   imageProfil: string;
   bio: string;

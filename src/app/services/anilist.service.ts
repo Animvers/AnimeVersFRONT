@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { App } from '../app';
 
 @Injectable({ providedIn: 'root' })
-export class Anilist {
+export class AnilistService {
   private http = inject(HttpClient);
 
   // J'affiche tout les données de l'anime que je veut afficher sur ma page animeone
