@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Navbar } from './features/components/navbar/navbar';
-import { ApiReponse } from './models/api-reponse';
+import { ApiReponse } from './interfaces/api-reponse';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './services/auth';
-import { UserModel } from './models/user.model';
+import { UserModel } from './interfaces/user.model';
 
 @Component({
   selector: 'app-root',

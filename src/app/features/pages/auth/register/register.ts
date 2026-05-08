@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../../../services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { App } from '../../../../app';
-import { ApiReponse } from '../../../../models/api-reponse';
+import { ApiReponse } from '../../../../interfaces/api-reponse';
 
 @Component({
   selector: 'app-register',

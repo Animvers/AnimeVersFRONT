@@ -6,8 +6,8 @@ import { App } from '../../../../app';
 import { AuthService } from '../../../../services/auth';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
-import { ApiReponse } from '../../../../models/api-reponse';
-import { ProfilModel } from '../../../../models/profil.model';
+import { ApiReponse } from '../../../../interfaces/api-reponse';
+import { ProfilModel } from '../../../../interfaces/profil.model';
 
 @Component({
   selector: 'app-profil',

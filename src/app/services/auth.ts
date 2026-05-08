@@ -1,8 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiReponse } from '../models/api-reponse';
-import { UserModel } from '../models/user.model';
+import { ApiReponse } from '../interfaces/api-reponse';
+import { UserModel } from '../interfaces/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
