@@ -1,5 +1,5 @@
 export interface ApiReponse {
   status: string;
-  mesage: string;
+  message: string;
   result: any | undefined;
 }

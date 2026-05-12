@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { PollService } from '../../../services/poll.service';
 import { App } from '../../../app';
+import { PollInterface } from '../../../interfaces/poll.interface';
 
 @Component({
   selector: 'app-poll',
@@ -26,26 +27,26 @@ export class PollComponent {
     public app: App,
   ) {}
 
-// verif admin
+  // verif admin
   isAdmin(): boolean {
     const user = this.authService.currentUserSelect();
     return user?.role?.includes('ROLE_ADMIN') || false;
   }
 
-// selection fichier
+  // selection fichier
   onFileChange(event: any): void {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
     }
   }
 
-// ajout choix
+  // ajout choix
   addChoice(): void {
     this.choices.push('');
   }
 
 
-// envoi du formulaire
+  // envoi du formulaire
   onSubmit(event: Event): void {
     event.preventDefault();
 
@@ -56,30 +57,39 @@ export class PollComponent {
 
     this.loading = true;
 
-// construction du FormDATA ( requis pour les fichiers + text !! ( note dans l'API ) )
-    const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('question', this.question);
-    formData.append('category_name', this.categoryName);
-
-// je filtre les choix vides ( pour ne pas a avoir a les stoker dans la BDD ) et je stringify
-// ( je transform le tableau de choix en chaine de caractere et dans l'api on vas le json_decode pour le retransformer
-// en véritable tableau PHP utilisable )
     const cleanChoices = this.choices.filter((c) => c.trim() !== '');
-    formData.append('choices', JSON.stringify(cleanChoices));
+
+    const pollData: PollInterface = {
+      title: this.title,
+      question: this.question,
+      category_name: this.categoryName,
+      is_active: true,
+      choices: cleanChoices,
+    };
+
+    // construction du FormDATA ( requis pour les fichiers + text !! ( note dans l'API ) )
+    const formData = new FormData();
+    formData.append('title', pollData.title);
+    formData.append('question', pollData.question);
+    formData.append('category_name', pollData.category_name);
+    formData.append('is_active', String(pollData.is_active));
+
+    // je filtre les choix vides ( pour ne pas a avoir a les stoker dans la BDD ) et je stringify
+    // ( je transform le tableau de choix en chaine de caractere et dans l'api on vas le json_decode pour le retransformer
+    // en véritable tableau PHP utilisable )
+    formData.append('choices', JSON.stringify(pollData.choices));
 
     if (this.selectedFile) {
       formData.append('imageUrl', this.selectedFile);
     }
 
-// apelle de la fonction du pollService
+    // apelle de la fonction du pollService
     this.pollService.createSondage(formData, this.app.urlAPI(), this.app.currentToken).subscribe({
       next: (response) => {
         if (response.status === 'ok') {
           alert('Sondage créé avec succès !');
-          this.resetForm();
         } else {
-          alert('Erreur : ' + response.mesage);
+          alert('Erreur : ' + response.message);
         }
         this.loading = false;
       },
@@ -91,11 +101,4 @@ export class PollComponent {
     });
   }
 
-  private resetForm(): void {
-    this.title = '';
-    this.question = '';
-    this.categoryName = '';
-    this.choices = ['', ''];
-    this.selectedFile = null;
-  }
 }
