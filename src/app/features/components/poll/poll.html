@@ -1,0 +1,70 @@
+<div class="container">
+  @if (isAdmin()) {
+    <div class="card">
+      <div class="card-header">
+        <h2 class="create">Créer un nouveau Sondage</h2>
+      </div>
+      <div class="card-body">
+        <form (submit)="onSubmit($event)">
+
+<!--           Titre -->
+          <div class="text">
+            <label class="form-label">Titre du sondage</label>
+            <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Titre du sondage" required>
+          </div>
+
+<!--           Question -->
+          <div class="text">
+            <label class="form-label">Question</label>
+            <input type="text" [(ngModel)]="question" name="question" class="form-control" placeholder="Question ..." required>
+          </div>
+
+<!--           Catégorie -->
+          <div class="text">
+            <label class="form-label">Nom de la catégorie</label>
+            <input type="text" [(ngModel)]="categoryName" name="category_name" class="form-control" placeholder="Ex: Anime, Manga, VS ...">
+          </div>
+
+<!--           Image -->
+          <div class="text">
+            <label class="form-label">Image d'illustration (optionnel)</label>
+            <input type="file" (change)="onFileChange($event)" class="form-control" accept="image/*">
+          </div>
+
+<!--           Choix dynamiques -->
+          <div class="text">
+            <label class="form-label">Choix du sondage
+              <button type="button" (click)="addChoice()" class="btn btn-sm btn-outline-secondary">+ Ajouter un choix</button>
+            </label>
+
+            @for (choice of choices; track $index) {
+              <div class="choice">
+                <span class="choice+1">{{ $index + 1 }}</span>
+                <input type="text" [(ngModel)]="choices[$index]" name="choice-{{$index}}" class="form-control" placeholder="Option {{ $index + 1 }}">
+              </div>
+            }
+          </div>
+
+          <div class="post">
+            <button type="submit" class="post-button" [disabled]="loading || !title || !question">
+              @if (loading) {
+                <span>Création en cours...</span>
+              } @else {
+                <span>Publier le Sondage</span>
+              }
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  } @else {
+<!--     Si pas Admin -->
+    <div class="alert">
+      <h4 class="alert-head">Accès Restreint</h4>
+      <p>Désolé, cette page est réservée aux administrateurs du site.</p>
+      <hr>
+      <p class="conect">Veuillez vous connecter avec un compte autorisé.</p>
+    </div>
+  }
+</div>
