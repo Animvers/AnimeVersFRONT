@@ -7,7 +7,7 @@ import { ApiReponse } from '../interfaces/api-reponse';
 export class PollService {
   constructor(private http: HttpClient) {}
 
-  createSondage(formData: FormData, apiUrl: string, token: string): Observable<ApiReponse> {
+  createPoll(formData: FormData, apiUrl: string, token: string): Observable<ApiReponse> {
     const headers = new HttpHeaders({ Authorization: 'Bearer ' + token, });
     return this.http.post<ApiReponse>(`${apiUrl}/sondage/create`, formData, { headers });
   }

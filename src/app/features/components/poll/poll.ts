@@ -84,7 +84,7 @@ export class PollComponent {
     }
 
     // apelle de la fonction du pollService
-    this.pollService.createSondage(formData, this.app.urlAPI(), this.app.currentToken).subscribe({
+    this.pollService.createPoll(formData, this.app.urlAPI(), this.app.currentToken).subscribe({
       next: (response) => {
         if (response.status === 'ok') {
           alert('Sondage créé avec succès !');
