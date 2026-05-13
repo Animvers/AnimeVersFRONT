@@ -7,7 +7,7 @@ import { User } from './features/pages/users/user/user';
 import { AnimeoneComponent } from './features/pages/animeone/animeOne';
 import { AnimeAllComponent } from './features/pages/animeall/animeAll';
 import { Admin } from './features/pages/users/admin/admin';
-import { PollComponent } from './features/components/poll/poll';
+import { PollCreateComponent } from './features/components/Polls/poll/CreatePoll';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -17,6 +17,6 @@ export const routes: Routes = [
   { path: 'admin', component: Admin },
   { path: 'animes', component: AnimeAllComponent },
   { path: 'anime/:id', component: AnimeoneComponent },
-  { path: 'poll', component: PollComponent },
+  { path: 'poll', component: PollCreateComponent },
   { path: '**', component: Err },
 ];

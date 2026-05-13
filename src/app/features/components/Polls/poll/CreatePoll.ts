@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
-import { PollService } from '../../../services/poll.service';
-import { App } from '../../../app';
-import { PollInterface } from '../../../interfaces/poll.interface';
+import { AuthService } from '../../../../services/auth.service';
+import { PollService } from '../../../../services/poll.service';
+import { App } from '../../../../app';
+import { PollInterface } from '../../../../interfaces/poll.interface';
 
 @Component({
-  selector: 'app-poll',
+  selector: 'app-poll-create',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './poll.html',
-  styleUrls: ['./poll.css'],
+  templateUrl: './CreatePoll.html',
+  styleUrls: ['./CreatePoll.css'],
 })
-export class PollComponent {
+export class PollCreateComponent {
   title: string = '';
   question: string = '';
   categoryName: string = '';
