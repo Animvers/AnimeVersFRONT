@@ -1,1 +1,50 @@
-<p>get-poll works!</p>
+<div class="poll-container">
+  <h2 class="title">Sondages Actifs</h2>
+
+  @if (isLoading) {
+    <div class="loader-container">
+      <div class="spinner"></div>
+      <p>Chargement des sondages...</p>
+    </div>
+  } @else if (errorMessage) {
+    <div class="error-box">
+      <p>{{ errorMessage }}</p>
+      <button (click)="fetchPolls()" class="retry-btn">Réessayer</button>
+    </div>
+  } @else {
+    <div class="poll-grid">
+      @for (poll of polls; track poll.id) {
+
+<!--         verifie si poll est actif pour la card -->
+        @if (poll.is_active) {
+          <div class="poll-card">
+            <div class="poll-header">
+              <h3>{{ poll.title }}</h3>
+              <span class="badge active">Actif :</span>
+            </div>
+
+            <div class="poll-body">
+              <p class="instruction">Choisir :</p>
+              <div class="choices-list">
+                @for (choice of poll.choices; track choice.id) {
+                  <button
+                    class="choice-btn"
+                    (click)="onVote(poll.id, choice)">
+                    {{ choice.label }}
+                  </button>
+                } @empty {
+                  <p class="no-data">Aucun choix dispo</p>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
+      } @empty {
+        <div class="empty-state">
+          <p>Aucun sondage n'est disponible pour le moment</p>
+        </div>
+      }
+    </div>
+  }
+</div>

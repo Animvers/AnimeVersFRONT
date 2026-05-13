@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { asapScheduler, Observable } from 'rxjs';
 import { ApiReponse } from '../interfaces/api-reponse';
 import { UserInterface } from '../interfaces/user.interface';
 
@@ -14,7 +14,9 @@ export class AuthService {
   options = { headers: this.headers };
 
   updateUser(user: UserInterface) {
+    asapScheduler.schedule(() => {
     this.currentUserSelect.set(user);
+    });
   }
 
   login(bodyNoJson: any, apiUrl: string): Observable<ApiReponse> {

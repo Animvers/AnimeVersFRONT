@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Navbar } from './features/components/navbar/navbar';
@@ -14,7 +14,7 @@ import { UserInterface } from './interfaces/user.interface';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   /************* Variable Global *************/
   APP_ENV: string = 'DEV';
   /* APP_ENV: string = 'PROD'; */
@@ -32,8 +32,10 @@ export class App {
     private cookiesServices: CookieService,
     private router: Router,
   ) {
-    const cookieToken: string = this.cookiesServices.get('AnimVersToken');
+  }
 
+  ngOnInit() {
+    const cookieToken: string = this.cookiesServices.get('AnimVersToken');
     if (cookieToken) {
       this.loginWithToken(cookieToken);
     }
